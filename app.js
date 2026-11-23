@@ -38,7 +38,7 @@ function openEditor(trigger) {
   add.setAttribute('aria-expanded', 'true');
   status.textContent = '';
   error.textContent = '';
-  recordedAt.focus();
+  formTitle.focus();
 }
 
 function closeEditor() {
@@ -150,7 +150,7 @@ form.addEventListener('submit', (event) => {
 
 add.addEventListener('click', () => {
   if (!editor.hidden) {
-    recordedAt.focus();
+    formTitle.focus();
     return;
   }
   resetForm();
