@@ -2,7 +2,6 @@ const storageKey = 'health-log.records';
 const add = document.querySelector('#add');
 const editor = document.querySelector('#editor');
 const form = document.querySelector('#record-form');
-const formTitle = document.querySelector('#form-title');
 const recordedAt = document.querySelector('#recorded-at');
 const temperature = document.querySelector('#temperature');
 const memo = document.querySelector('#memo');
@@ -27,7 +26,7 @@ function resetForm() {
   editingId = null;
   form.reset();
   recordedAt.value = nowForInput();
-  formTitle.textContent = '体調を記録';
+  editor.setAttribute('aria-label', '体調を記録');
   save.textContent = '保存';
 }
 
@@ -38,7 +37,7 @@ function openEditor(trigger) {
   add.setAttribute('aria-expanded', 'true');
   status.textContent = '';
   error.textContent = '';
-  formTitle.focus();
+  editor.focus();
 }
 
 function closeEditor() {
@@ -120,7 +119,7 @@ function editRecord(record, trigger) {
   recordedAt.value = record.recordedAt;
   temperature.value = record.temperature;
   memo.value = record.memo;
-  formTitle.textContent = '記録を編集';
+  editor.setAttribute('aria-label', '記録を編集');
   save.textContent = '変更を保存';
   openEditor(trigger);
 }

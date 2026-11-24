@@ -13,9 +13,8 @@ body { margin: 0; }
 .container { width: min(100% - 2rem, 36rem); margin-inline: auto; }
 header { background: var(--accent); color: white; padding-block: .8rem; }
 main { padding-block: 1.25rem max(2rem, env(safe-area-inset-bottom)); }
-h1, h2, p { margin: 0; }
+h1, p { margin: 0; }
 h1 { font-size: 1.55rem; }
-h2 { font-size: 1.2rem; margin-bottom: .85rem; }
 
 .panel {
   background: white;
