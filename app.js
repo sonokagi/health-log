@@ -7,7 +7,6 @@ const recordedAt = document.querySelector('#recorded-at');
 const temperature = document.querySelector('#temperature');
 const memo = document.querySelector('#memo');
 const save = document.querySelector('#save');
-const cancel = document.querySelector('#cancel');
 const status = document.querySelector('#status');
 const error = document.querySelector('#error');
 const empty = document.querySelector('#empty');
@@ -35,6 +34,7 @@ function resetForm() {
 function openEditor(trigger) {
   returnFocus = trigger;
   editor.hidden = false;
+  add.textContent = 'キャンセル';
   add.setAttribute('aria-expanded', 'true');
   status.textContent = '';
   error.textContent = '';
@@ -43,6 +43,7 @@ function openEditor(trigger) {
 
 function closeEditor() {
   editor.hidden = true;
+  add.textContent = '追加';
   add.setAttribute('aria-expanded', 'false');
   resetForm();
   (returnFocus.isConnected ? returnFocus : add).focus();
@@ -150,16 +151,12 @@ form.addEventListener('submit', (event) => {
 
 add.addEventListener('click', () => {
   if (!editor.hidden) {
-    formTitle.focus();
+    error.textContent = '';
+    closeEditor();
     return;
   }
   resetForm();
   openEditor(add);
-});
-
-cancel.addEventListener('click', () => {
-  error.textContent = '';
-  closeEditor();
 });
 
 resetForm();
