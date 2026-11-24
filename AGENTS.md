@@ -6,6 +6,12 @@
 - 個人情報、実際の健康記録、認証情報（パスワード、API キー、トークン、秘密鍵など）を Git の追跡対象やコミット履歴に含めない。開発や動作確認には架空のデータを使う。
 - アプリの健康記録は利用者の端末内に保存する。記録やその内容を外部のサーバー、API、分析サービスなどに送信しない。
 
+## コミットメッセージ
+
+- 今後作成するコミットのメッセージは [Conventional Commits 1.0.0](https://www.conventionalcommits.org/ja/v1.0.0/) に従う。既存のコミット履歴は書き換えない。
+- 件名は `<type>: <description>` とする。対象を示す場合は `<type>(<scope>): <description>` とする。
+- 変更内容に合う型を選ぶ。機能追加には `feat`、不具合修正には `fix`、文書のみの変更には `docs` などを使う。例は `fix(ui): avoid focusing the date field`。
+
 ## GitHub への Push
 
 - ユーザーから明示的に指示された場合にのみ GitHub へ Push する。ローカルコミットの指示に Push は含まれない。
