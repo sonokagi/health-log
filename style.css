@@ -59,9 +59,8 @@ button:disabled { opacity: .55; cursor: default; }
 .danger { color: #941e2a; background: #fceff0; }
 :focus-visible { outline: 2px solid #276eaa; outline-offset: 2px; }
 
-#editor:not([hidden]) ~ .history,
-#status:not(:empty) ~ .history,
-#error:not(:empty) ~ .history { margin-top: 1.25rem; }
+#status:not(:empty) ~ #history,
+#error:not(:empty) ~ #history { margin-top: 1.25rem; }
 #empty { color: #48635a; }
 #records { display: grid; gap: .65rem; margin: 0; padding: 0; list-style: none; }
 #records .actions { margin-top: .65rem; }

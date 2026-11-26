@@ -10,11 +10,11 @@ const status = document.querySelector('#status');
 const error = document.querySelector('#error');
 const empty = document.querySelector('#empty');
 const list = document.querySelector('#records');
+const history = document.querySelector('#history');
 
 let records = [];
 let editingId = null;
 let storageReady = false;
-let returnFocus = add;
 
 function nowForInput() {
   const now = new Date();
@@ -30,22 +30,25 @@ function resetForm() {
   save.textContent = '保存';
 }
 
-function openEditor(trigger) {
-  returnFocus = trigger;
+function openEditor() {
+  history.hidden = true;
   editor.hidden = false;
   add.textContent = 'キャンセル';
   add.setAttribute('aria-expanded', 'true');
   status.textContent = '';
   error.textContent = '';
-  editor.focus();
+  window.scrollTo(0, 0);
+  editor.focus({ preventScroll: true });
 }
 
 function closeEditor() {
   editor.hidden = true;
+  history.hidden = false;
   add.textContent = '追加';
   add.setAttribute('aria-expanded', 'false');
   resetForm();
-  (returnFocus.isConnected ? returnFocus : add).focus();
+  window.scrollTo(0, 0);
+  add.focus({ preventScroll: true });
 }
 
 function readRecords() {
@@ -106,7 +109,7 @@ function renderRecords() {
     const actions = document.createElement('div');
     actions.className = 'actions';
     actions.append(
-      makeButton('編集', 'secondary', (event) => editRecord(record, event.currentTarget)),
+      makeButton('編集', 'secondary', () => editRecord(record)),
       makeButton('削除', 'danger', () => deleteRecord(record)),
     );
     item.append(actions);
@@ -114,20 +117,19 @@ function renderRecords() {
   }
 }
 
-function editRecord(record, trigger) {
+function editRecord(record) {
   editingId = record.id;
   recordedAt.value = record.recordedAt;
   temperature.value = record.temperature;
   memo.value = record.memo;
   editor.setAttribute('aria-label', '記録を編集');
   save.textContent = '変更を保存';
-  openEditor(trigger);
+  openEditor();
 }
 
 function deleteRecord(record) {
   if (!window.confirm('この記録を削除しますか？')) return;
   if (!persist(records.filter((entry) => entry.id !== record.id))) return;
-  if (editingId === record.id) closeEditor();
   status.textContent = '記録を削除しました。';
 }
 
@@ -155,7 +157,7 @@ add.addEventListener('click', () => {
     return;
   }
   resetForm();
-  openEditor(add);
+  openEditor();
 });
 
 resetForm();
