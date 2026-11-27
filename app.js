@@ -1,5 +1,6 @@
 const storageKey = 'health-log.records';
 const add = document.querySelector('#add');
+const content = document.querySelector('main');
 const editor = document.querySelector('#editor');
 const form = document.querySelector('#record-form');
 const recordedAt = document.querySelector('#recorded-at');
@@ -37,7 +38,7 @@ function openEditor() {
   add.setAttribute('aria-expanded', 'true');
   status.textContent = '';
   error.textContent = '';
-  window.scrollTo(0, 0);
+  content.scrollTop = 0;
   editor.focus({ preventScroll: true });
 }
 
@@ -47,7 +48,7 @@ function closeEditor() {
   add.textContent = '追加';
   add.setAttribute('aria-expanded', 'false');
   resetForm();
-  window.scrollTo(0, 0);
+  content.scrollTop = 0;
   add.focus({ preventScroll: true });
 }
 

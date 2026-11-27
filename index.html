@@ -17,26 +17,28 @@
       <button id="add" type="button" aria-controls="editor" aria-expanded="false">追加</button>
     </div>
   </header>
-  <main class="container">
-    <section id="editor" class="panel" aria-label="体調を記録" tabindex="-1" hidden>
-      <form id="record-form">
-        <label for="recorded-at">日時</label>
-        <input id="recorded-at" type="datetime-local" required>
-        <label for="temperature">体温（℃）</label>
-        <input id="temperature" type="number" inputmode="decimal" step="any" placeholder="36.5">
-        <label for="memo">メモ</label>
-        <textarea id="memo" rows="4" placeholder="今日の体調や気になったこと"></textarea>
-        <div class="actions">
-          <button id="save" type="submit">保存</button>
-        </div>
-      </form>
-    </section>
-    <p id="status" role="status"></p>
-    <p id="error" role="alert"></p>
-    <section id="history" aria-label="これまでの記録">
-      <p id="empty">まだ記録がありません。</p>
-      <ul id="records"></ul>
-    </section>
+  <main>
+    <div class="container">
+      <section id="editor" class="panel" aria-label="体調を記録" tabindex="-1" hidden>
+        <form id="record-form">
+          <label for="recorded-at">日時</label>
+          <input id="recorded-at" type="datetime-local" required>
+          <label for="temperature">体温（℃）</label>
+          <input id="temperature" type="number" inputmode="decimal" step="any" placeholder="36.5">
+          <label for="memo">メモ</label>
+          <textarea id="memo" rows="4" placeholder="今日の体調や気になったこと"></textarea>
+          <div class="actions">
+            <button id="save" type="submit">保存</button>
+          </div>
+        </form>
+      </section>
+      <p id="status" role="status"></p>
+      <p id="error" role="alert"></p>
+      <section id="history" aria-label="これまでの記録">
+        <p id="empty">まだ記録がありません。</p>
+        <ul id="records"></ul>
+      </section>
+    </div>
   </main>
 </body>
 </html>
