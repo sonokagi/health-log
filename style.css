@@ -64,15 +64,22 @@ button {
 }
 form button[type="submit"] { flex: 1; }
 button:disabled { opacity: .55; cursor: default; }
-.secondary { color: var(--accent); background: #e9f5f0; }
-.danger { color: #941e2a; background: #fceff0; }
+.danger { width: 100%; color: #941e2a; background: #fceff0; }
+#delete-actions { border-top: 1px solid #d4e3dd; margin-top: 1.25rem; padding-top: .75rem; }
 :focus-visible { outline: 2px solid #276eaa; outline-offset: 2px; }
 
 #status:not(:empty) ~ #history,
 #error:not(:empty) ~ #history { margin-top: 1.25rem; }
 #empty { color: #48635a; }
 #records { display: grid; gap: .65rem; margin: 0; padding: 0; list-style: none; }
-#records .actions { margin-top: .65rem; }
+.record-card {
+  display: block;
+  width: 100%;
+  color: inherit;
+  font-weight: normal;
+  text-align: start;
+}
+.record-card span { display: block; }
 time { color: #39564c; font-variant-numeric: tabular-nums; }
 .reading { font-size: 1.4rem; font-weight: 650; }
 .memo { margin-top: .35rem; white-space: pre-wrap; overflow-wrap: anywhere; }

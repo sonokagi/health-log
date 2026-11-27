@@ -7,6 +7,8 @@ const recordedAt = document.querySelector('#recorded-at');
 const temperature = document.querySelector('#temperature');
 const memo = document.querySelector('#memo');
 const save = document.querySelector('#save');
+const deleteActions = document.querySelector('#delete-actions');
+const deleteButton = document.querySelector('#delete');
 const status = document.querySelector('#status');
 const error = document.querySelector('#error');
 const empty = document.querySelector('#empty');
@@ -29,6 +31,7 @@ function resetForm() {
   recordedAt.value = nowForInput();
   editor.setAttribute('aria-label', '体調を記録');
   save.textContent = '保存';
+  deleteActions.hidden = true;
 }
 
 function openEditor() {
@@ -72,15 +75,6 @@ function persist(nextRecords) {
   return true;
 }
 
-function makeButton(label, className, onClick) {
-  const button = document.createElement('button');
-  button.type = 'button';
-  button.className = className;
-  button.textContent = label;
-  button.addEventListener('click', onClick);
-  return button;
-}
-
 function renderRecords() {
   const sorted = [...records].sort((a, b) => b.recordedAt.localeCompare(a.recordedAt));
   empty.hidden = !storageReady || sorted.length > 0;
@@ -88,32 +82,29 @@ function renderRecords() {
 
   for (const record of sorted) {
     const item = document.createElement('li');
-    item.className = 'panel';
+    const card = document.createElement('button');
+    card.type = 'button';
+    card.className = 'panel record-card';
+    card.addEventListener('click', () => editRecord(record));
     const time = document.createElement('time');
     time.dateTime = record.recordedAt;
     time.textContent = record.recordedAt.replaceAll('-', '/').replace('T', ' ');
-    item.append(time);
+    card.append(time);
 
     if (record.temperature !== '') {
-      const reading = document.createElement('p');
+      const reading = document.createElement('span');
       reading.className = 'reading';
       reading.textContent = `${record.temperature} ℃`;
-      item.append(reading);
+      card.append(reading);
     }
     if (record.memo) {
-      const note = document.createElement('p');
+      const note = document.createElement('span');
       note.className = 'memo';
       note.textContent = record.memo;
-      item.append(note);
+      card.append(note);
     }
 
-    const actions = document.createElement('div');
-    actions.className = 'actions';
-    actions.append(
-      makeButton('編集', 'secondary', () => editRecord(record)),
-      makeButton('削除', 'danger', () => deleteRecord(record)),
-    );
-    item.append(actions);
+    item.append(card);
     list.append(item);
   }
 }
@@ -125,14 +116,17 @@ function editRecord(record) {
   memo.value = record.memo;
   editor.setAttribute('aria-label', '記録を編集');
   save.textContent = '変更を保存';
+  deleteActions.hidden = false;
   openEditor();
 }
 
-function deleteRecord(record) {
+deleteButton.addEventListener('click', () => {
+  if (editingId === null) return;
   if (!window.confirm('この記録を削除しますか？')) return;
-  if (!persist(records.filter((entry) => entry.id !== record.id))) return;
+  if (!persist(records.filter((entry) => entry.id !== editingId))) return;
   status.textContent = '記録を削除しました。';
-}
+  closeEditor();
+});
 
 form.addEventListener('submit', (event) => {
   event.preventDefault();
